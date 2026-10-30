@@ -7,16 +7,16 @@ jobs:
     name: golang-lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: 设置go环境
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
           go-version-file: "go.mod"
           cache-dependency-path: "go.sum"
       - run: |
           docker cp $(docker create --rm docker.cnb.cool/opsre/go-ldap-admin-ui):/app/dist public/static/dist
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@v8
+        uses: golangci/golangci-lint-action@v9
         with:
           version: v2.4.0
           args: --timeout=5m --skip-files="public/client/feishu/feishu.go"
@@ -24,11 +24,11 @@ jobs:
     name: go-build
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v5
     - run: |
           docker cp $(docker create --rm docker.cnb.cool/opsre/go-ldap-admin-ui):/app/dist public/static/dist
     - name: 设置go环境
-      uses: actions/setup-go@v5
+      uses: actions/setup-go@v6
       with:
         go-version-file: "go.mod"
         cache-dependency-path: "go.sum"
